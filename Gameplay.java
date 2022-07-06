@@ -1,11 +1,10 @@
-import java.util.*;
+
 import java.awt.event.*;
 
 import javax.swing.*;
 
 import java.awt.*;
 
-import javax.swing.*;
 import javax.swing.Timer;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener 
@@ -15,9 +14,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 	
 	private int totalBricks = 48;
 	
-	private Timer timer;
-	private int delay=4;
-	
+	private final Timer timer;
+
 	private int playerX = 310;
 	
 	private int ballposX = 120;
@@ -33,7 +31,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-        timer=new Timer(delay,this);
+		int delay = 4;
+		timer=new Timer(delay,this);
 		timer.start();
 	}
 	
@@ -192,16 +191,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 						
 						Rectangle rect = new Rectangle(brickX, brickY, brickWidth, brickHeight);					
 						Rectangle ballRect = new Rectangle(ballposX, ballposY, 20, 20);
-						Rectangle brickRect = rect;
-						
-						if(ballRect.intersects(brickRect))
+
+						if(ballRect.intersects(rect))
 						{					
 							map.setBrickValue(0, i, j);
 							score+=5;	
 							totalBricks--;
 							
 							// when ball hit right or left of brick
-							if(ballposX + 19 <= brickRect.x || ballposX + 1 >= brickRect.x + brickRect.width)	
+							if(ballposX + 19 <= rect.x || ballposX + 1 >= rect.x + rect.width)
 							{
 								ballXdir = -ballXdir;
 							}
